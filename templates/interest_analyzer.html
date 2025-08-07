@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Interest Analyzer{% endblock %}
+{% block content %}
+<h2>Student Interest Analyzer</h2>
+<form method="POST">
+    <p>Select your interests:</p>
+    {% for interest in interests %}
+    <input type="checkbox" id="{{ interest }}" name="interests" value="{{ interest }}"> 
+    <label for="{{ interest }}">{{ interest }}</label><br>
+    {% endfor %}
+    <br>
+    <button type="submit">Analyze</button>
+</form>
+{% endblock %}
