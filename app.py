@@ -176,6 +176,16 @@ def courses_scope():
 def get_colleges(course):
     colleges = courses_info.get(course, {}).get('colleges', [])
     return jsonify(colleges)
+
+
+
+@app.route('/about')
+def about():
+    if 'username' not in session:
+        return redirect(url_for('login'))
+    return render_template('about.html')
+
+
 import os
 
 if __name__ == '__main__':
@@ -183,8 +193,3 @@ if __name__ == '__main__':
         db.create_all()
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port, debug=True)
-@app.route('/about')
-def about():
-    if 'username' not in session:
-        return redirect(url_for('login'))
-    return render_template('about.html')
