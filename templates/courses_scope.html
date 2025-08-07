@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %}Courses Scope Graph{% endblock %}
+{% block content %}
+<h2>Best Scope Courses After School</h2>
+
+<div id="graph"></div>
+
+<h3>Top Colleges for Selected Course:</h3>
+<ul id="colleges-list">
+    <li>Select a course on the graph to see top colleges.</li>
+</ul>
+
+<script>
+// Data from backend
+const courses = {{ courses | tojson }};
+
+// Extract data for plotting
+const courseNames = Object.keys(courses);
+const popularity = Object.values(courses);
+
+// Prepare scatter plot
+const data = [{
+    x: courseNames,
+    y: popularity,
+    type: 'bar',
+    marker: {
+        color: 'blue'
+    }
+}];
+
+const layout = {
+    title: 'Popular Courses Based on Scope Score',
+    yaxis: {title: 'Scope Score'},
+    xaxis: {title: 'Courses'},
+};
+
+Plotly.newPlot('graph', data, layout);
+
+// Add click event to bars
+var graphDiv = document.getElementById('graph');
+graphDiv.on('plotly_click', function(data){
+    var pts = '';
+    if(data.points.length > 0){
+        const clickedCourse = data.points[0].x;
+        fetch('/get_colleges/' + encodeURIComponent(clickedCourse))
+            .then(response => response.json())
+            .then(colleges => {
+                let html = '';
+                if(colleges.length > 0){
+                    colleges.forEach(c => {
+                        html += `<li>${c}</li>`;
+                    });
+                } else {
+                    html = '<li>No colleges available for this course.</li>';
+                }
+                document.getElementById('colleges-list').innerHTML = html;
+            });
+    }
+});
+</script>
+{% endblock %}
