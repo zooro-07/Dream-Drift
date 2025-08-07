@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Dream Drift - {% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='plotly-latest.min.js') }}"></script>
+</head>
+<body>
+<header>
+    <h1>Dream Drift</h1>
+    {% if session.get('username') %}
+    <nav>
+        <a href="{{ url_for('dashboard') }}">Dashboard</a> |
+        <a href="{{ url_for('interest_analyzer') }}">Interest Analyzer</a> |
+        <a href="{{ url_for('courses_scope') }}">Courses Scope</a> |
+        <a href="{{ url_for('logout') }}">Logout ({{ session.get('username') }})</a>
+    </nav>
+    {% endif %}
+</header>
+<main>
+    {% block content %}{% endblock %}
+</main>
+<footer>
+    <hr>
+    <p>&copy; 2024 Dream Drift</p>
+</footer>
+</body>
+</html>
