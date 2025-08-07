@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Course Detail{% endblock %}
+{% block content %}
+<h2>Course Details: {{ course_name }}</h2>
+
+<h3>Relevant Interests:</h3>
+<ul>
+    {% for interest in interests %}
+    <li>{{ interest }}</li>
+    {% endfor %}
+</ul>
+
+<h3>Recommended Colleges:</h3>
+<ul>
+    {% for college in colleges %}
+    <li>{{ college }}</li>
+    {% endfor %}
+</ul>
+
+<a href="{{ url_for('courses_scope') }}">Back to Courses Scope</a>
+{% endblock %}
