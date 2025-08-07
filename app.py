@@ -2,6 +2,11 @@
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
+@app.route('/about')
+def about():
+    if 'username' not in session:
+        return redirect(url_for('login'))
+    return render_template('about.html')
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key_here'  # Change to a strong secret
