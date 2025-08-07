@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Roadmap{% endblock %}
+{% block content %}
+<h2>Your recommended career path: {{ best_course }}</h2>
+
+<h3>Suggested Roadmap:</h3>
+<ol>
+    {% for step in roadmap %}
+    <li>{{ step }}</li>
+    {% endfor %}
+</ol>
+
+<h3>Top Colleges offering {{ best_course }}:</h3>
+<ul>
+    {% for college in colleges %}
+    <li>{{ college }}</li>
+    {% endfor %}
+</ul>
+
+<a href="{{ url_for('dashboard') }}">Back to Dashboard</a>
+{% endblock %}
