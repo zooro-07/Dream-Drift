@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<h2>Welcome, {{ session.get('username') }}!</h2>
+<p>Use the menu above to navigate:</p>
+<ul>
+   <li><a href="{{ url_for('interest_analyzer') }}">Analyze Your Interests</a></li>
+   <li><a href="{{ url_for('courses_scope') }}">View Courses Scope Graph</a></li>
+</ul>
+{% endblock %}
